@@ -1,0 +1,16 @@
+[package]
+name = "challenge_1_base64"
+version = "0.1.0"
+authors = ["MajorX234 <majorx234@googlemail.com>"]
+edition = "2021"
+
+[lib]
+name = "base64_lib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "hex2base64"
+path = "src/main.rs"
+
+[dependencies]
+file_handler = {path = "../file_handler", version = "0.1.0"}
