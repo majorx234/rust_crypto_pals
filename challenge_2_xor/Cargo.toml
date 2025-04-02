@@ -1,0 +1,12 @@
+[package]
+name = "challenge_2_xor"
+version = "0.1.0"
+authors = ["MajorX234 <majorx234@googlemail.com>"]
+edition = "2021"
+
+[[bin]]
+name = "xor"
+path = "src/main.rs"
+
+[dependencies]
+hex = {version = "0.4.3" }
