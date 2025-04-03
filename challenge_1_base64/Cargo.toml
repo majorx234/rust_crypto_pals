@@ -13,6 +13,6 @@ name = "hex2base64"
 path = "src/main.rs"
 
 [dependencies]
-file_handler = {path = "../file_handler", version = "0.1.0"}
+crypto_helper = {path = "../crypto_helper", version = "0.1.0"}
 base64 = {version = "0.22.1" }
 hex = {version = "0.4.3" }

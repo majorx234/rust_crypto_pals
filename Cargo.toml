@@ -2,5 +2,5 @@
 resolver = "2"
 
 members = [
-    "file_handler", "challenge_1_base64", "challenge_2_xor", 
+    "crypto_helper", "challenge_1_base64", "challenge_2_xor",
 ]

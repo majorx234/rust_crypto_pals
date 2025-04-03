@@ -15,3 +15,13 @@ pub fn read_arg_file() -> io::Result<BufReader<File>> {
     let file = File::open(file_name)?;
     Ok(BufReader::new(file))
 }
+
+pub fn read_data() -> (usize, std::vec::Vec<f32>) {
+    let values_data = std::io::stdin()
+        .lock()
+        .lines()
+        .map(|x| x.expect("0.0").parse::<f32>().unwrap())
+        .collect::<Vec<f32>>();
+    let num_samples = values_data.len();
+    return (num_samples, values_data);
+}
