@@ -16,12 +16,9 @@ pub fn read_arg_file() -> io::Result<BufReader<File>> {
     Ok(BufReader::new(file))
 }
 
-pub fn read_data() -> (usize, std::vec::Vec<f32>) {
-    let values_data = std::io::stdin()
-        .lock()
-        .lines()
-        .map(|x| x.expect("0.0").parse::<f32>().unwrap())
-        .collect::<Vec<f32>>();
-    let num_samples = values_data.len();
-    return (num_samples, values_data);
+pub fn read_char_data() -> (usize, std::vec::Vec<char>) {
+    let mut vec_values = Vec::new();
+    let result_size = std::io::stdin().lock().read_to_end(&mut vec_values);
+    let num_samples = result_size.expect("no input");
+    (num_samples, vec_values.iter().map(|x| *x as char).collect())
 }
