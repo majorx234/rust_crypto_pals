@@ -2,5 +2,5 @@
 resolver = "2"
 
 members = [
-    "crypto_helper", "challenge_1_base64", "challenge_2_xor",
+    "crypto_helper", "challenge_1_base64", "challenge_2_xor", "challenge_3_break_xor",
 ]
