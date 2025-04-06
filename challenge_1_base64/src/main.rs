@@ -15,6 +15,8 @@ fn main() {
             let decoded = hex::decode(&line).expect("Decoding failed");
             let base64_line = BASE64_STANDARD.encode(&decoded);
             println!("{} {}", line, base64_line);
+        } else {
+            break;
         }
     }
 }

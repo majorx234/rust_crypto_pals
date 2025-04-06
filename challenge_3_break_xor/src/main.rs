@@ -20,8 +20,8 @@ fn main() {
 
     let input_hex_vec = hex::decode(String::from_iter(input_hex_vec_raw)).expect("Hex error");
     let mut input_frequency_map: HashMap<u8, u16> = HashMap::new();
-    for letter in input_hex_vec {
-        let value = input_frequency_map.entry(letter).or_insert_with(|| 0);
+    for letter in &input_hex_vec {
+        let value = input_frequency_map.entry(*letter).or_insert_with(|| 0);
         *value += 1;
     }
     let mut letter_frequency_list = Vec::new();
@@ -35,4 +35,19 @@ fn main() {
     let letter_replace_map = read_letter_replace_map_from_file(letter_replace_map_reader, ',');
     println!("letter frequency_map: {:?}", letter_frequency_map);
     println!("letter repalace: {:?}", letter_replace_map);
+
+    if let Some(letter_replace_map) = letter_replace_map {
+        print_decrpyted_input(input_hex_vec, &letter_replace_map);
+    }
+}
+
+fn print_decrpyted_input(input_hex_vec: Vec<u8>, letter_replace_map: &HashMap<u8, char>) {
+    for letter_code in input_hex_vec {
+        if let Some(replace_letter) = letter_replace_map.get(&letter_code) {
+            print!("{}", replace_letter);
+        } else {
+            print!("[{}]", letter_code);
+        }
+    }
+    println!("\n");
 }
