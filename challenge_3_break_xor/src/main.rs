@@ -1,4 +1,4 @@
-use crypto_helper::{read_arg_file, read_char_data};
+use crypto_helper::{read_arg_file, read_char_data, read_map_from_file};
 use hex;
 use std::collections::hash_map::HashMap;
 use std::io::{self, prelude::*, BufReader};
@@ -25,4 +25,7 @@ fn main() {
     }
     letter_frequency_list.sort_by_key(|k| k.1);
     println!("letter frequency: {:?}", letter_frequency_list);
+
+    let letter_frequency_map = read_map_from_file(letter_frequency_reader, ',');
+    println!("letter frequency_map: {:?}", letter_frequency_map);
 }
