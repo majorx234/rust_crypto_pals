@@ -52,9 +52,47 @@ fn print_decrpyted_input(input_hex_vec: Vec<u8>, letter_replace_map: &HashMap<u8
     println!("\n");
 }
 
-fn score_string(word: &[char]) {}
+fn brute_force_score_string(
+    input_hex_vec: Vec<u8>,
+    letter_frequency_map: HashMap<char, f32>,
+) -> u8 {
+    let mut max = 0.0;
+    let mut best_xor_key = 0;
+    for xor_key in 0..=255 {
+        let mut num_letters = 0;
+        let word = input_hex_vec
+            .iter()
+            .map(|x| *x ^ xor_key)
+            .collect::<Vec<u8>>();
+        let mut curent_frequency_map: HashMap<char, f32> = HashMap::new();
+        for letter in word {
+            if letter.is_ascii() {
+                let letter_char = letter.to_ascii_lowercase() as char;
+                let value = curent_frequency_map
+                    .entry(letter_char)
+                    .or_insert_with(|| 0.0);
+                *value += 1.0;
+                num_letters += 1;
+            }
+        }
+        if num_letters != 0 {
+            // normalize
+            for (key, value) in curent_frequency_map.iter_mut() {
+                *value /= num_letters as f32;
+            }
+        } else {
+            break;
+        }
+        let distance = bhattacharyya_distance(&letter_frequency_map, &curent_frequency_map);
+        if max < 1.0 / distance {
+            max = 1.0 / distance;
+            best_xor_key = xor_key;
+        }
+    }
+    best_xor_key
+}
 
-fn bhattacharyya_distance(dist1: HashMap<char, f32>, dist2: HashMap<char, f32>) -> f32 {
+fn bhattacharyya_distance(dist1: &HashMap<char, f32>, dist2: &HashMap<char, f32>) -> f32 {
     let mut bc_coeff = 0.0;
     for c in b'a'..=b'z' {
         let fact1 = dist1[&(c as char)];
