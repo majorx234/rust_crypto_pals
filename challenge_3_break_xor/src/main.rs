@@ -51,3 +51,15 @@ fn print_decrpyted_input(input_hex_vec: Vec<u8>, letter_replace_map: &HashMap<u8
     }
     println!("\n");
 }
+
+fn score_string(word: &[char]) {}
+
+fn bhattacharyya_distance(dist1: HashMap<char, f32>, dist2: HashMap<char, f32>) -> f32 {
+    let mut bc_coeff = 0.0;
+    for c in b'a'..=b'z' {
+        let fact1 = dist1[&(c as char)];
+        let fact2 = dist2[&(c as char)];
+        bc_coeff += (fact1 * fact2).sqrt();
+    }
+    bc_coeff
+}
