@@ -92,6 +92,13 @@ fn brute_force_score_string(
     best_xor_key
 }
 
+fn decrypt_text(input_hex_vec: Vec<u8>, xor_key: u8) -> Vec<char> {
+    input_hex_vec
+        .iter()
+        .map(|x| (*x ^ xor_key).to_ascii_lowercase() as char)
+        .collect::<Vec<char>>()
+}
+
 fn bhattacharyya_distance(dist1: &HashMap<char, f32>, dist2: &HashMap<char, f32>) -> f32 {
     let mut bc_coeff = 0.0;
     for c in b'a'..=b'z' {
