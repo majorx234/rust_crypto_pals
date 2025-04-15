@@ -5,6 +5,7 @@ use crypto_helper::{
 use hex;
 use std::collections::hash_map::HashMap;
 use std::io::{self, prelude::*, BufReader};
+use std::process::exit;
 
 fn main() {
     let mut files = read_arg_file().unwrap();
@@ -31,19 +32,27 @@ fn main() {
     letter_frequency_list.sort_by_key(|k| k.1);
     println!("letter frequency: {:?}", letter_frequency_list);
 
-    let letter_frequency_map = read_letter_frequency_map_from_file(letter_frequency_reader, ',');
+    let letter_frequency_map = if let Some(letter_frequency_map) =
+        read_letter_frequency_map_from_file(letter_frequency_reader, ',')
+    {
+        letter_frequency_map
+    } else {
+        exit(-1);
+        HashMap::new()
+    };
     let letter_replace_map = read_letter_replace_map_from_file(letter_replace_map_reader, ',');
     println!("letter frequency_map: {:?}", letter_frequency_map);
     println!("letter repalace: {:?}", letter_replace_map);
 
     if let Some(letter_replace_map) = letter_replace_map {
-        print_decrpyted_input(input_hex_vec, &letter_replace_map);
+        print_decrpyted_input(&input_hex_vec, &letter_replace_map);
     }
+    let xor_key = brute_force_score_string(&input_hex_vec, &letter_frequency_map);
 }
 
-fn print_decrpyted_input(input_hex_vec: Vec<u8>, letter_replace_map: &HashMap<u8, char>) {
+fn print_decrpyted_input(input_hex_vec: &[u8], letter_replace_map: &HashMap<u8, char>) {
     for letter_code in input_hex_vec {
-        if let Some(replace_letter) = letter_replace_map.get(&letter_code) {
+        if let Some(replace_letter) = letter_replace_map.get(letter_code) {
             print!("{}", replace_letter);
         } else {
             print!("[{}]", letter_code);
