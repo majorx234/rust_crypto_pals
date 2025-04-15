@@ -48,6 +48,9 @@ fn main() {
         print_decrpyted_input(&input_hex_vec, &letter_replace_map);
     }
     let xor_key = brute_force_score_string(&input_hex_vec, &letter_frequency_map);
+    let decrypted_text = decrypt_text(input_hex_vec, xor_key);
+    let decrypted_text_string = String::from_iter(&decrypted_text);
+    println!("decrypted text: {}", decrypted_text_string);
 }
 
 fn print_decrpyted_input(input_hex_vec: &[u8], letter_replace_map: &HashMap<u8, char>) {
