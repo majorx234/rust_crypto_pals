@@ -52,10 +52,7 @@ fn print_decrpyted_input(input_hex_vec: Vec<u8>, letter_replace_map: &HashMap<u8
     println!("\n");
 }
 
-fn brute_force_score_string(
-    input_hex_vec: Vec<u8>,
-    letter_frequency_map: HashMap<char, f32>,
-) -> u8 {
+fn brute_force_score_string(input_hex_vec: &[u8], letter_frequency_map: &HashMap<char, f32>) -> u8 {
     let mut max = 0.0;
     let mut best_xor_key = 0;
     for xor_key in 0..=255 {
